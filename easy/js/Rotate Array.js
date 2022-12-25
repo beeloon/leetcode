@@ -1,25 +1,21 @@
 // https://leetcode.com/problems/rotate-array
-
-const reverse = (nums, i, j) => {
-  while (i < j) {
-    const temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-
-    i++;
-    j--;
-  }
-};
-
 const rotate = (nums, k) => {
-  if (nums.length < 2) return;
+  k %= nums.length;
 
-  const len = nums.length;
-  k = k % len;
+  const reverse = (start, end) => {
+    while (start < end) {
+      const temp = nums[start];
+      nums[start] = nums[end];
+      nums[end] = temp;
 
-  reverse(nums, 0, len - k - 1);
-  reverse(nums, len - k, len - 1);
-  reverse(nums, 0, len - 1);
+      start++;
+      end--;
+    }
+  };
+
+  reverse(0, nums.length - 1);
+  reverse(0, k - 1);
+  reverse(k, nums.length - 1);
 };
 
 rotate([1, 2, 3, 4, 5, 6, 7], 3);
